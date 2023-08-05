@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Sweet Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Karla', sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        background-color: #fce;
+      }
+      #view {
+        display: flex;
+        width: 100%;
+        padding: 20px 20px 0 20px;
+        justify-content: center;
+        flex-direction: row;
+      }
+      section {
+        border: solid black 1px;
+        vertical-align: middle;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px;
+        max-width: 250px;
+        min-width: 150px;
+        background-color: #55eeff;
+        box-shadow: 10px 10px 5px #a3ff99;
+        overflow: hidden;
+      } 
+      h2 {
+        margin-top: 0;
+        width: 100%;
+        border-bottom: dotted black 2px;
+      }
+      ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      a:link, a:visited, a:hover, a:active {
+        text-decoration: none;
+        color: black;
+      }
+
+      @media (max-width: 800px) {
+        #view {
+          width: 80%;
+          flex-direction: column;
+        }
+        section {
+          width: 70%;
+          min-width: 70%;
+          max-width: 70%;
+        } 
+      }
+    </style>
+  </head>
+  <body>
+    <div id="view"></div>
+
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const encoded = urlParams.get('data');
+      const data = atob(encoded);
+      const obj = JSON.parse(data);
+      const view = document.getElementById('view');
+      let out = '';
+      for (const [key, links] of Object.entries(obj)) {
+        out = out + '<section><h2>' + key + '</h2><ul>'
+        for (const [title, href] of Object.entries(links)) {
+          out = out + '<li><a href="' + href + '">' + title + '</a></li>'
+        }
+        out = out + '</ul></section>'
+      }
+      view.innerHTML = out;
+    </script>
+  </body>
+</html>
