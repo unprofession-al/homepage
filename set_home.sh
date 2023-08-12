@@ -15,10 +15,11 @@ echo $WORKDIR
 CHROMECONFIG="$HOME/.config/chromium/Default/Preferences"
 if [[ -f $CHROMECONFIG ]]; then
   echo "Chromium Config.."
-  cat $CHROMECONFIG  | jq '.homepage = "'$FULL'"' | jq '.homepage_is_newtabpage = false' > $WORKDIR/CHROME 
+  cat $CHROMECONFIG  | jq '.homepage = "'$FULL'"' | jq '.homepage_is_newtabpage = false' | jq '.session.startup_urls = ["'$FULL'"]' > $WORKDIR/CHROME 
   mv $WORKDIR/CHROME $CHROMECONFIG
 fi
 
+rm -rf $WORKDIR
 
 
 
